@@ -9,6 +9,7 @@ use App\Entity\Room;
 
 class AppFixtures extends Fixture
 {
+    public const IDF_REGION_REFERENCE = 'idf-region';
     public function load(ObjectManager $manager)
     {
         $region = new Region();
@@ -28,6 +29,9 @@ class AppFixtures extends Fixture
         $room = new Room();
         $room->setSummary("Beau poulailler ancien à Évry");
         $room->setDescription("très joli espace sur paille");
+        $room->setCapacity(2);
+        $room->setSuperficy(9);
+        $room->setAddress('Evry ghetto');
         //$room->addRegion($region);
         // On peut plutôt faire une référence explicite à la référence
         // enregistrée précédamment, ce qui permet d'éviter de se
