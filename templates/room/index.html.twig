@@ -12,25 +12,50 @@
 	<div class="secCon">
 		<div id="fake" style="height:0px;">
 			<div class="middleP">
-				<a href="#section01" class="ahref"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
+				<h1 class="text-center">COTAZO</h1>
+				<a href="#section01" class="ahref" style="margin-left:35%;"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
 			</div>
 		</div>
+		<!-- ===================== S E C T I O N    0 1 ===================== -->
 		<section id="section01" class="demo">
 			<div class="middleP">
-				<a href="#section02" class="ahref"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
+				<h1 class="text-center">Recherche</h1>
+				<div>
+					<div style="display:inline-bock;">
+						<input type="text" class="form-control form-control-lg" placeholder="Entrer une région" style="margin-bottom:15px;"/>
+					</div>
+<!-- 					<div style="display:inline-bock;"> -->
+<!-- 						<i class="far fa-arrow-alt-circle-right arrow" ></i> -->
+<!-- 					</div> -->
+				</div>
+				<a href="#section02" class="ahref" style="margin-left:40%;"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
+			</div>
+			<div>
 			</div>
 		</section>
+		<!-- ===================== S E C T I O N    0 2 ===================== -->
+		<!-- ================================================================ -->
 		<section id="section02">
 			<div class="middleP">
-<!-- 				<a href="#section03"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br> -->
-			</div>
-			<div class="home">
-				{% for room in listeRooms %}
-					{{ room.summary }}<br>
-					{{ room.description }}<br><br>
-				{% endfor %}
+				<h1 class="text-center">Meilleures annonces</h1>
+				<a href="#section03" style="margin-left:40%;"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
 			</div>
 		</section>
+		<!-- ===================== S E C T I O N    0 3 ===================== -->
+		<!-- ================================================================ -->
+		<section id="section03">
+			<div class="middleP">
+				<h1 class="text-center">Dernières annonces</h1>
+				<a href="#header"><i class="far fa-arrow-alt-circle-up arrow" style="margin-left:40%;"></i></a><br>
+			</div>
+			<div class="home">
+				{#{% for room in listeRooms %}
+					{{ room.summary }}<br>
+					{{ room.description }}<br><br>
+				{% endfor %}#}
+			</div>
+		</section>
+		<!-- ================================================================ -->
 	</div>
 	
 	<script src="{{ asset('JS/header.js') }}"></script>
