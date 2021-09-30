@@ -17,7 +17,6 @@ section {
 	height: 400px;
 	background-color:rgb(53,50,107);
 	scroll-snap-align: center;
-	border:2px solid red;
 }
 
 #section01{

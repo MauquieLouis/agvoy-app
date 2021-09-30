@@ -6,12 +6,16 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Region;
 use App\Entity\Room;
+// use Faker;
 
 class AppFixtures extends Fixture
 {
     public const IDF_REGION_REFERENCE = 'idf-region';
     public function load(ObjectManager $manager)
     {
+        
+//         $faker = Faker\Factory::create('fr_FR');
+        //Ajout d'une région
         $region = new Region();
         $region->setCountry("FR");
         $region->setName("Ile de France");
@@ -39,6 +43,7 @@ class AppFixtures extends Fixture
         $room->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
         $manager->persist($room);
         
+        //AJout de owners        
         $manager->flush();
     }
 }

@@ -41,8 +41,11 @@
                 	<ul>
                     	<li><a href="#">Home</a></li>
 	                    <li><a href="#">About</a></li>
-	                    <li><a href="#">Blog</a></li>
-	                    <li><a href="#">Contact</a></li>
+	                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	                   		<li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+	                    {% else %}
+	                    	<li><a href="{{ path('app_login') }}">S'identifier</a></li>
+	                    {% endif %}
                   	</ul>
                	</div>
 			</nav>
