@@ -30,12 +30,6 @@ console.log(navHeight);
 var totalHeight = window.innerHeight;
 sections = document.getElementsByTagName('section')
 for(var i =0; i<sections.length; i++){	
-	sections[i].style.height=(totalHeight-navHeight)+"px"
+	sections[i].style.height=(totalHeight-navHeight+99)+"px"
 }
-listA = document.getElementsByClassName('ahref');
-for(var i =0; i<listA.length; i++){
-	listA[i].onclick = function(){
-		console.log("AA")
-		setTimeout(scroll(0,"-100px"),500);
-	}
-}
+
