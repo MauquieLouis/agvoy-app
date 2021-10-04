@@ -1,20 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
-
+{% block title %}Hello RoomController!{% endblock %}
+{% block stylesheets %}
+	<link href="{{ asset('css/home.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/header.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('fontAwesome/css/all.min.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Louis/agvoy-app/src/Controller/SecurityController.php'|file_link(0) }}">src/Controller/SecurityController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Louis/agvoy-app/templates/security/index.html.twig'|file_link(0) }}">templates/security/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div class="secCon">
+		<div id="fake" style="height:0px;">
+			<div class="middleP">
+				<div class="pR">
+					<h1 class="text-center">COTAZO</h1>
+					<a href="#section01" class="ahref ToCtr" ><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
+				</div>
+			</div>
+		</div>
+		<!-- ===================== S E C T I O N    0 1 ===================== -->
+		<section id="section01" class="demo">
+			<div class="middleP">
+				<h1 class="text-center">Recherche</h1>
+				<div>
+					<div style="display:inline-bock;">
+						<input type="text" class="form-control form-control-lg" placeholder="Entrer une région" style="margin-bottom:15px;"/>
+					</div>
+<!-- 					<div style="display:inline-bock;"> -->
+<!-- 						<i class="far fa-arrow-alt-circle-right arrow" ></i> -->
+<!-- 					</div> -->
+				</div>
+				<a href="#section02" class="ahref ToCtr"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
+			</div>
+			<div>
+			</div>
+		</section>
+		<!-- ===================== S E C T I O N    0 2 ===================== -->
+		<!-- ================================================================ -->
+		<section id="section02">
+			<div class="middleP">
+				<h1 class="text-center">Meilleures annonces</h1>
+				<a href="#section03" class="ahref ToCtr"><i class="far fa-arrow-alt-circle-down arrow"></i></a><br>
+			</div>
+		</section>
+		<!-- ===================== S E C T I O N    0 3 ===================== -->
+		<!-- ================================================================ -->
+		<section id="section03">
+			<div class="middleP">
+				<h1 class="text-center">Dernières annonces</h1>
+				<a href="#header" class="ahref ToCtr"><i class="far fa-arrow-alt-circle-up arrow"></i></a><br>
+			</div>
+			<div class="home">
+				{#{% for room in listeRooms %}
+					{{ room.summary }}<br>
+					{{ room.description }}<br><br>
+				{% endfor %}#}
+			</div>
+		</section>
+		<!-- ================================================================ -->
+	</div>
+	
+	<script src="{{ asset('JS/header.js') }}"></script>        
+	<script>
+	var header = document.getElementById('header');
+	header.style.height=window.innerHeight+"px";
+	</script>
 {% endblock %}

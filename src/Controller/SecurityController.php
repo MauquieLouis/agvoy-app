@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
     public function index(): Response
     {
         $listeRooms = $this->rR->findAll();
-        return $this->render('room/index.html.twig', [
+        return $this->render('security/index.html.twig', [
             'listeRooms' => $listeRooms,
         ]);
     }
