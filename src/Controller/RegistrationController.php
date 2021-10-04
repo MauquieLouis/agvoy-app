@@ -36,6 +36,10 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+            if($form->getData()['plainPassword'] != $form->getData()['confirmPassword']){
+                //Add flash Message
+                return $this->redirectToRoute("app_register");
+            }
             $user->setPassword(
             $userPasswordEncoderInterface->encodePassword(
                     $user,

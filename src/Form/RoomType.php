@@ -22,7 +22,7 @@ class RoomType extends AbstractType
             ->add('price')
             ->add('address')
             ->add('owner')
-            ->add('region',EntityType::class,[
+            ->add('region', EntityType::class,[
                 'class' => Region::class,
                 'placeholder' =>'Choisir la region',
                 'multiple' => true,
