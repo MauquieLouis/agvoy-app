@@ -23,6 +23,14 @@ class AppFixtures extends Fixture
         $manager->persist($region);
         
         $manager->flush();
+        $region = new Region();
+        $region->setCountry("FR");
+        $region->setName("Evry Ghetto");
+        $region->setPresentation("grosse region de ouf");
+        $manager->persist($region);
+        
+        $manager->flush();
+        
         // Une fois l'instance de Region sauvée en base de données,
         // elle dispose d'un identifiant généré par Doctrine, et peut
         // donc être sauvegardée comme future référence.

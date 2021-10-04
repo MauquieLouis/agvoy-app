@@ -24,6 +24,7 @@
 .backFormSection{
 	background-color:rgb(53,50,107);
 	height:900px;
+	color:white !important;
 }
 
 .disableAEffect
@@ -87,6 +88,11 @@ h1 {
     top: 70%;
     transform: translateY(-50%);
 }
+
+.tableStyle{
+	color:white !important;
+}
+
 
 /*---- W E I  / S E I ----*/
 .sei{

@@ -42,7 +42,7 @@ class Room
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $prive;
+    private $price;
 
     /**
      * @ORM\Column(type="text")
@@ -117,14 +117,14 @@ class Room
         return $this;
     }
 
-    public function getPrive(): ?int
+    public function getPrice(): ?int
     {
-        return $this->prive;
+        return $this->price;
     }
 
-    public function setPrive(?int $prive): self
+    public function setPrice(?int $price): self
     {
-        $this->prive = $prive;
+        $this->price = $price;
 
         return $this;
     }

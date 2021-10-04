@@ -6,6 +6,9 @@ use App\Entity\Room;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Region;
 
 class RoomType extends AbstractType
 {
@@ -16,10 +19,17 @@ class RoomType extends AbstractType
             ->add('description')
             ->add('capacity')
             ->add('superficy')
-            ->add('prive')
+            ->add('price')
             ->add('address')
             ->add('owner')
-            ->add('region')
+            ->add('region',EntityType::class,[
+                'class' => Region::class,
+                'placeholder' =>'Choisir la region',
+                'multiple' => true,
+                'required' => false,
+                'choice_label' =>function($region){
+                return ($region->getCountry().' : '.$region->getName());}
+            ])
         ;
     }
 
