@@ -40,9 +40,18 @@
             	</div>
                	<div class="menu">
                 	<ul>
-                    	<li><a href="#">Home</a></li>
-	                    <li><a href="#">About</a></li>
+                		{% if is_granted('ROLE_OWNER')%}
+                			<li><a href="#">Mes offres</a></li>
+                		{% endif %}
+                		{% if is_granted('ROLE_CLIENT')%}
+<!--                 			<li><a href="#"></a></li> -->
+                		{% endif %}
+                		{% if is_granted('IS_ANONYMOUS')%}
+                			
+                		{% endif %}
+                    	<li><a href="{{ path('room_index') }}">Recherche</a></li>
 	                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	                    	<li><a href="#">{{ app.user.email }}</a></li>
 	                   		<li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
 	                    {% else %}
 	                    	<li><a href="{{ path('app_login') }}">S'identifier</a></li>
@@ -52,7 +61,14 @@
 			</nav>
 		</header>
 		<div class="backFormSection">
-        {% block body %}{% endblock %}
+			{% for label, messages in app.flashes(['success', 'warning']) %}
+			    {% for message in messages %}
+			        <div class="alert alert-{{ label }}" role="alert">
+			            {{ message }}
+			        </div>
+			    {% endfor %}
+			{% endfor %}
+        	{% block body %}{% endblock %}
         </div>
     </body>
 </html>

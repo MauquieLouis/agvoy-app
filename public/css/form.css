@@ -18,10 +18,11 @@ html, body {
 .form-holder {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+/*       justify-content: center; */
       align-items: center;
       text-align: center;
       min-height: 100vh;
+      padding-right:0;
 }
 
 .form-holder .form-content {

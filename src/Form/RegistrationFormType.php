@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -22,6 +23,7 @@ class RegistrationFormType extends AbstractType
                 'label' => false,
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'J\'accepte toutes les conditions du monde',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -40,7 +42,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 2,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
@@ -56,12 +58,22 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 2,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('roles',ChoiceType::class,[
+                'choices' => [
+                    'Propriétaire' => 'ROLE_OWNER',
+                    'Utilisateur' => 'ROLE_CLIENT',
+                    'Les deux' => 'BOTH',
+                ],
+                'mapped' => false,
+                'placeholder' => 'Choisir un type d\'utilisation',
+                'label' => false,
             ])
         ;
     }

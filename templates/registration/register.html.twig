@@ -14,7 +14,7 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 	<div class="form-body">
-		<div class="row">
+		<div class="row" style="margin-right:0px !important;">
 			<div class="form-holder">
 				<div class="form-content">
 					<div class="form-items">
@@ -30,9 +30,10 @@
 					        {{ form_row(registrationForm.confirmPassword,
 					       		{'attr':{'placeholder':'Confirmer le mot de passe'}}
 					      	) }}
-					        {{ form_row(registrationForm.agreeTerms) }}
+					      	{{ form_row(registrationForm.roles) }}
+					        {{ form_row(registrationForm.agreeTerms,{'attr':{ 'class':'mt15 form-check-input' }}) }}
                             <div class="form-button mt-3">
-                                <button id="submit" type="submit" class="btn btn-primary">S'enregistrer</button>
+                                <button id="submit" type="submit" class=" btn btn-sm btn-secondary ">S'enregistrer</button>
                             </div>
 					    {{ form_end(registrationForm) }}
 					</div>    

@@ -2,40 +2,52 @@
 
 {% block title %}Room index{% endblock %}
 
+
+{% block stylesheets %}
+	<link href="{{ asset('css/home.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/header.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/card.css') }}" rel="stylesheet" />
+	<link href="{{ asset('fontAwesome/css/all.min.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body %}
-    <h1>Room index</h1>
-
-    <table class="table" style="color:white;">
-        <thead>
-            <tr>
-            	<th>Region</th>
-                <th>Summary</th>
-                <th>Capacity</th>
-                <th>Superficy</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for room in rooms %}
-            <tr>
-                <td>{% for region in room.region %}{{ region.name }} | {% endfor %}</td>
-                <td>{{ room.summary }}</td>
-                <td>{{ room.description }}</td>
-                <td>{{ room.capacity }}</td>
-                <td>{{ room.superficy }}</td>
-                <td>{{ room.price }}</td>
-                <td>
-                    <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
-                    <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('room_new') }}">Create new</a>
+	<div class="container mx-auto mt-4" style="margin-top:0 !important; padding-top:80px;">
+		<div class="row">
+   		{% for room in rooms %}
+			<div class="col-md-6 col-lg-4">
+				<div class="card" style="width: 100%;;">
+					<img src="{{ asset('img/maisons/' ~ room.image) }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Maison en {% for region in room.region %}{{ region.country }}{% endfor %}</h5>
+						<h6 class="card-subtitle mb-2 text-muted ">{% for region in room.region %}{{ region.name }}{% endfor %}</h6>
+						<div class="card-text summary">
+							{{ room.summary }}
+						</div>
+						<div class="btnZone">
+<!-- 							<a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a> -->
+<!-- 							<a href="#" class="btn "><i class="fab fa-github"></i> Github</a> -->
+							<div class="row">
+								<div class="col-4">
+									<i class="fas fa-male"></i>
+									<i class="fas fa-male"></i>
+									{{ room.capacity }}
+								</div>
+								<div class="col-4">
+									<i class="fas fa-home"></i>
+									{{ room.superficy }}
+								</div>
+								<div class="col-4">
+									<i class="fas fa-money-bill-wave"></i>
+									{{ room.price }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>    
+   		{% endfor %}
+		</div>
+	</div>
 {% endblock %}

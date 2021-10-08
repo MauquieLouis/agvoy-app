@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Form\SearchRoomType;
 /**
  * @Route("/room")
  */
@@ -18,10 +19,18 @@ class RoomController extends AbstractController
     /**
      * @Route("/", name="room_index", methods={"GET"})
      */
-    public function index(RoomRepository $roomRepository): Response
+    public function index(RoomRepository $roomRepository, Request $request): Response
     {
+        $searchForm = $this->createForm(SearchRoomType::class);
+        $searchForm->handleRequest($request);
+        $rooms = $roomRepository->findSixLast();
+        if($searchForm->isSubmitted() && $searchForm->isValid()){
+            
+        }
+        
         return $this->render('room/index.html.twig', [
-            'rooms' => $roomRepository->findAll(),
+            'rooms' => $rooms,
+            'form' => $searchForm->createView(),
         ]);
     }
 

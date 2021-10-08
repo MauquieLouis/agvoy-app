@@ -36,8 +36,10 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            if($form->getData()['plainPassword'] != $form->getData()['confirmPassword']){
+//             dd($form);
+            if($form->get('plainPassword')->getData() != $form->get('confirmPassword')->getData()){
                 //Add flash Message
+                $this->addFlash('warning', 'Les mots de passe doivent être les mêmes.');
                 return $this->redirectToRoute("app_register");
             }
             $user->setPassword(
@@ -46,6 +48,20 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $roles = $form->get('roles')->getData();
+            switch($roles){
+                case 'ROLE_OWNER':
+                    $user->setRoles(['ROLE_OWNER']);
+                break;
+                case 'ROLE_CLIENT':
+                    $user->setRoles(['ROLE_CLIENT']);
+                break;
+                case 'BOTH':
+                    $user->setRoles(['ROLE_OWNER','ROLE_CLIENT']);
+                break;
+                default:
+                break;
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

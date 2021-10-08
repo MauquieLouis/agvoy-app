@@ -18,6 +18,18 @@ class RoomRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Room::class);
     }
+    
+    
+    public function findSixLast()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r')
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult();
+    }
+    //Récupérer les 6 dernières Rooms ajouté pour les afficher dans la zone recherche
 
     // /**
     //  * @return Room[] Returns an array of Room objects

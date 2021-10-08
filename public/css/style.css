@@ -23,7 +23,7 @@
 }
 .backFormSection{
 	background-color:rgb(53,50,107);
-	height:900px;
+	min-height:900px;
 	color:white !important;
 }
 
@@ -121,3 +121,6 @@ h1 {
 	position:relative;
 }
 /*---------------*/
+.mt15{
+	margin-top:15px;
+}
