@@ -86,7 +86,7 @@ class AppFixtures extends Fixture
             $room = new Room();
             $room->setSummary($faker->words(15,true));
             $room->setCapacity($faker->numberBetween(2,16));
-            $room->setSuperficy($faker->numberBetween(80,350));
+            $room->setSuperficy($faker->numberBetween(200,550));
             $room->setPrice($faker->numberBetween(900,15000));
             $room->setAddress($faker->address);
             $room->addRegion($regionRepo->findOneBy([ 'name' => $this->tableRegions[$faker->numberBetween(1,14)]]));

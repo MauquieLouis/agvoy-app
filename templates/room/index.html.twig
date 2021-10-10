@@ -17,8 +17,8 @@
 		<div class="row">
    		{% for room in rooms %}
 			<div class="col-md-6 col-lg-4">
-				<div class="card" style="width: 100%;;">
-					<img src="{{ asset('img/maisons/' ~ room.image) }}" class="card-img-top" alt="...">
+				<div class="card" style="width: 100%;border:0 !important;">
+					<img src="{{ asset('img/maisons/' ~ room.image) }}" class="card-img-top" alt="Maison plutôt luxueuse" height=240px style="object-fit:cover;border-radius:0 !important;">
 					<div class="card-body">
 						<h5 class="card-title">Maison en {% for region in room.region %}{{ region.country }}{% endfor %}</h5>
 						<h6 class="card-subtitle mb-2 text-muted ">{% for region in room.region %}{{ region.name }}{% endfor %}</h6>
@@ -29,14 +29,14 @@
 <!-- 							<a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a> -->
 <!-- 							<a href="#" class="btn "><i class="fab fa-github"></i> Github</a> -->
 							<div class="row">
-								<div class="col-4">
+								<div class="offset-1 col-3">
 									<i class="fas fa-male"></i>
 									<i class="fas fa-male"></i>
 									{{ room.capacity }}
 								</div>
 								<div class="col-4">
 									<i class="fas fa-home"></i>
-									{{ room.superficy }}
+									{{ room.superficy }} m²
 								</div>
 								<div class="col-4">
 									<i class="fas fa-money-bill-wave"></i>
