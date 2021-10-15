@@ -41,6 +41,11 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Owner::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $Owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,6 +135,18 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getOwner(): ?Owner
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?Owner $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

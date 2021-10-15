@@ -14,6 +14,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use App\Entity\Owner;
 // use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -49,6 +50,11 @@ class RegistrationController extends AbstractController
                 )
             );
             $roles = $form->get('roles')->getData();
+            $owner = new Owner();
+            $owner->setFamilyName($form->get('LastName')->getData());
+            $owner->setFirstName($form->get('FirstName')->getData());
+            $owner->setAddress($form->get('Address')->getData());
+            $owner->setCountry($form->get('Country')->getData());
             switch($roles){
                 case 'ROLE_OWNER':
                     $user->setRoles(['ROLE_OWNER']);
@@ -64,6 +70,8 @@ class RegistrationController extends AbstractController
             }
 
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($owner);
+            $user->setOwner($owner);
             $entityManager->persist($user);
             $entityManager->flush();
 

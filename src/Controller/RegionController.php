@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Room;
 
 /**
  * @Route("/region")
@@ -53,8 +54,11 @@ class RegionController extends AbstractController
      */
     public function show(Region $region): Response
     {
+        $roomRepository = $this->getDoctrine()->getRepository(Room::class);
+        $rooms = $roomRepository->getRoom($region);
         return $this->render('region/show.html.twig', [
             'region' => $region,
+            'rooms' => $rooms
         ]);
     }
 

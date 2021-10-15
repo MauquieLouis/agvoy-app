@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Room;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Region;
 
 /**
  * @method Room|null find($id, $lockMode = null, $lockVersion = null)
@@ -29,7 +30,34 @@ class RoomRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    //Récupérer les 6 dernières Rooms ajouté pour les afficher dans la zone recherche
+    
+    // /**
+    //  * @return Room[] Returns an array of Room objects
+    //  */
+    
+     public function findByRegionId($value)
+     {
+         return $this->createQueryBuilder('r')
+         ->andWhere('r.region = :val')
+         ->setParameter('val', $value)
+         ->orderBy('r.id', 'ASC')
+         ->setMaxResults(10)
+         ->getQuery()
+         ->getResult()
+         ;
+     }
+     
+     public function getRoom(Region $region)
+     {
+         $qb = $this->createQueryBuilder("p")
+         ->where(':region MEMBER OF p.region')
+         ->setParameters(array('region' => $region))
+         ;
+         return $qb->getQuery()->getResult();
+     }
+     
+     /*
+   // Récupérer les 6 dernières Rooms ajouté pour les afficher dans la zone recherche
 
     // /**
     //  * @return Room[] Returns an array of Room objects

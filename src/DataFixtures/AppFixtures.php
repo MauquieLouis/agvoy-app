@@ -11,6 +11,8 @@ use Faker\Factory;
 use App\Repository\RoomRepository;
 use App\Repository\RegionRepository;
 use App\Entity\Owner;
+use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -26,13 +28,20 @@ class AppFixtures extends Fixture
         yield["FR","Auvergne-Rhône-Alpes", "On ne sait pas ce qu'il y à la bas"];
         yield["FR","Provence-Alpes-Côte d'Azur", "C'est l'été, le soleil, les vacances, le Pastis !"];
         yield["FR","Grand Est", "La saucisse"];
-        yield["FR","Breton", "Ils ont des chapeaux ronds, vive les bretons, ils ont des chapeaux verts, vive les per..."];
+        yield["FR","Normandie", "rien déso"];
+        yield["FR","Bretagne", "Ils ont des chapeaux ronds, vive les bretons, ils ont des chapeaux verts, vive les per..."];
         yield["FR","Bourgogne-Franche-Comté", "Je connais pas, mais ça sent le fromage"];
         yield["FR","Centre-Val de Loire", "Je sais pas désolé"];
         yield["FR","Corse", "On y vas pas !"];
         yield["ES","Huesca", "Les canyons"];
         yield["ES","Madrid", "dride Ma"];
         yield["ES","Barcelone", "Oupsssss"];
+    }
+    
+    private $encoder;
+    
+    public function __construct(UserPasswordEncoderInterface $userPasswordEncoderInterface){
+        $this->encoder = $userPasswordEncoderInterface;   
     }
     
     public function load(ObjectManager $manager)
@@ -64,11 +73,38 @@ class AppFixtures extends Fixture
             $owner = new Owner();
             $owner->setAddress($faker->address);
             $owner->setCountry("FR");
-            $owner->setFamilyName($faker->firstName);
+            $owner->setFamilyName($faker->firstName.$i);
             $owner->setFirstname($faker->lastName);
             $itterator++;
             $this->tableOwner[$itterator] = $owner->getFamilyName();
             $manager->persist($owner);
+        }
+        $manager->flush();
+        
+        $ownerRepo = $manager->getRepository(Owner::class);
+        for($i=0; $i<10; $i++){
+            $user = new User();
+            $user->setEmail('test'.$i.'@test.fr');
+            $user->setPassword($this->encoder->encodePassword(
+                $user,
+                'test'
+                ));
+            $user->setRoles(['ROLE_OWNER','ROLE_CLIENT']);
+            $user->setOwner($ownerRepo->findOneBy(['familyName' => $this->tableOwner[$i+1]]));
+            $manager->persist($user);
+            
+        }
+        for($i=0; $i<2; $i++){
+            $user = new User();
+            $user->setEmail('admin'.$i.'@test.fr');
+            $user->setPassword($this->encoder->encodePassword(
+                $user,
+                'admin'
+                ));
+            $user->setRoles(['ROLE_OWNER','ROLE_CLIENT','ROLE_ADMIN']);
+//             $user->setOwner($ownerRepo->findOneBy(['familyName' => $this->tableOwner[$i+1]]));
+            $manager->persist($user);
+            
         }
         
         $manager->flush();
@@ -79,7 +115,6 @@ class AppFixtures extends Fixture
         $this->addReference(self::IDF_REGION_REFERENCE, $region);
         
         $regionRepo = $manager->getRepository(Region::class);
-        $ownerRepo = $manager->getRepository(Owner::class);
         // ...
         //Génération de 20 Rooms
         for($i=0; $i<20; $i++){

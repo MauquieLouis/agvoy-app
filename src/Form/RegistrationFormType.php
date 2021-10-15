@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -75,6 +76,10 @@ class RegistrationFormType extends AbstractType
                 'placeholder' => 'Choisir un type d\'utilisation',
                 'label' => false,
             ])
+            ->add('FirstName',TextType::class,['mapped'=>false, 'label' => false])
+            ->add('LastName',TextType::class,['mapped'=>false, 'label' => false])
+            ->add('Address',TextType::class,['mapped'=>false, 'label' => false])
+            ->add('Country',ChoiceType::class,['mapped'=>false, 'choices' =>['FR' => 'FR', 'ES' => 'ES'],'placeholder' => 'Choisir le pays', 'label' => false])
         ;
     }
 

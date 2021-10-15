@@ -49,4 +49,16 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
+    /**
+     * @Route("/offres", name="mesoffres", methods={"GET"})
+     */
+    public function mesOffres() : Response
+    {
+        $user = $this->getUser();
+//         dd($user);
+        $owner = $user->getOwner();
+        dd($owner);
+        $rooms = $this->getUser()->getOwner()->getRooms();
+        dd($rooms);
+    }
 }

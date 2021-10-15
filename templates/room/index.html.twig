@@ -15,10 +15,20 @@
 {% block body %}
 	<div class="container mx-auto mt-4" style="margin-top:0 !important; padding-top:80px;">
 		<div class="row">
+			<h1 class="text-center">Rechercher par région</h1>
+			<div class="col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4 zoneSearch">
+				{{ form_start(form) }}
+					{{ form_row(form.search,
+						{'attr':{'placeholder':'Entrer une région', 'class':'form-control form-control-lg'}}
+					) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
+		<div class="row">
    		{% for room in rooms %}
 			<div class="col-md-6 col-lg-4">
-				<div class="card" style="width: 100%;border:0 !important;">
-					<img src="{{ asset('img/maisons/' ~ room.image) }}" class="card-img-top" alt="Maison plutôt luxueuse" height=240px style="object-fit:cover;border-radius:0 !important;">
+				<div class="card" style="width:100%;border:0 !important;">
+					<img src="{{ asset('img/maisons/'  	~ room.image) }}" class="card-img-top" alt="Maison plutôt luxueuse" style="object-fit:cover;border-radius:0 !important;height:250px;">
 					<div class="card-body">
 						<h5 class="card-title">Maison en {% for region in room.region %}{{ region.country }}{% endfor %}</h5>
 						<h6 class="card-subtitle mb-2 text-muted ">{% for region in room.region %}{{ region.name }}{% endfor %}</h6>

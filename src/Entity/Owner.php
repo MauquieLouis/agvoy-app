@@ -44,6 +44,11 @@ class Owner
      */
     private $rooms;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="Owner", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
@@ -128,6 +133,28 @@ class Owner
                 $room->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setOwner(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getOwner() !== $this) {
+            $user->setOwner($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
