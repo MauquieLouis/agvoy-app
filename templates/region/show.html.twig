@@ -2,8 +2,17 @@
 
 {% block title %}Region{% endblock %}
 
+{% block stylesheets %}
+	<link href="{{ asset('css/home.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/header.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/form.css') }}" rel="stylesheet" />
+	<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('css/card.css') }}" rel="stylesheet" />
+	<link href="{{ asset('fontAwesome/css/all.min.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body %}
-    <h1>Region</h1>
+    <h1>Region {{ region.name }}</h1>
 
     <table class="table tableStyle">
         <tbody>
@@ -31,4 +40,41 @@
     <a href="{{ path('region_edit', {'id': region.id}) }}">edit</a>
 
     {{ include('region/_delete_form.html.twig') }}
+    
+    
+    <div class="row">
+   		{% for room in rooms %}
+			<div class="col-md-6 col-lg-4">
+				<div class="card" style="width: 100%;border:0 !important;">
+					<img src="{{ asset('img/maisons/'  	~ room.image) }}" class="card-img-top" alt="Maison plutôt luxueuse" 	 style="object-fit:cover;border-radius:0 !important;">
+					<div class="card-body">
+						<h5 class="card-title">Maison en {% for region in room.region %}{{ region.country }}{% endfor %}</h5>
+						<h6 class="card-subtitle mb-2 text-muted ">{% for region in room.region %}{{ region.name }}{% endfor %}</h6>
+						<div class="card-text summary">
+							{{ room.summary }}
+						</div>
+						<div class="btnZone">
+<!-- 							<a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a> -->
+<!-- 							<a href="#" class="btn "><i class="fab fa-github"></i> Github</a> -->
+							<div class="row">
+								<div class="offset-1 col-3">
+									<i class="fas fa-male"></i>
+									<i class="fas fa-male"></i>
+									{{ room.capacity }}
+								</div>
+								<div class="col-4">
+									<i class="fas fa-home"></i>
+									{{ room.superficy }} m²
+								</div>
+								<div class="col-4">
+									<i class="fas fa-money-bill-wave"></i>
+									{{ room.price }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>    
+   		{% endfor %}
+		</div>
 {% endblock %}
