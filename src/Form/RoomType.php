@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Region;
+use App\Entity\Owner;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class RoomType extends AbstractType
 {
@@ -21,7 +23,6 @@ class RoomType extends AbstractType
             ->add('superficy')
             ->add('price')
             ->add('address')
-            ->add('owner')
             ->add('region', EntityType::class,[
                 'class' => Region::class,
                 'placeholder' =>'Choisir la region',
@@ -30,7 +31,16 @@ class RoomType extends AbstractType
                 'choice_label' =>function($region){
                 return ($region->getCountry().' : '.$region->getName());}
             ])
-        ;
+            ->add('owner',EntityType::class,[
+                'class' => Owner::class,
+                'placeholder' =>'Choisir le propriétaire',
+                'required' => false,
+                'choice_label' =>function($owner){
+                return ($owner->getFamilyName());}
+                ])
+            ->add('image',FileType::class,[
+               'label' => 'choisir une image', 
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

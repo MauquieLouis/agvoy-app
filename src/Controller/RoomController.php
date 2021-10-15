@@ -9,15 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use App\Form\SearchRoomType;
+use App\Entity\Region;
 /**
  * @Route("/room")
  */
 class RoomController extends AbstractController
 {
     /**
-     * @Route("/", name="room_index", methods={"GET"})
+     * @Route("/", name="room_index", methods={"GET","POST"})
      */
     public function index(RoomRepository $roomRepository, Request $request): Response
     {
@@ -25,7 +27,11 @@ class RoomController extends AbstractController
         $searchForm->handleRequest($request);
         $rooms = $roomRepository->findSixLast();
         if($searchForm->isSubmitted() && $searchForm->isValid()){
-            
+            $regionSearch = $searchForm->get('search')->getData();
+            $regionRep = $this->getDoctrine()->getRepository(Region::class);
+            $region = $regionRep->findOneBy(['name' => $regionSearch]);
+            $rooms = $roomRepository->getRoom($region);
+//             $rooms = $roomRepository->findBy(['region' => $region->getId()]);
         }
         
         return $this->render('room/index.html.twig', [
@@ -35,6 +41,7 @@ class RoomController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_OWNER")
      * @Route("/new", name="room_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -42,7 +49,9 @@ class RoomController extends AbstractController
         $room = new Room();
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
-
+        if($this->isGranted('ROLE_OWNER')) {
+            $form->remove('owner');
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($room);

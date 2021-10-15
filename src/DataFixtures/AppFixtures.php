@@ -26,7 +26,8 @@ class AppFixtures extends Fixture
         yield["FR","Auvergne-Rhône-Alpes", "On ne sait pas ce qu'il y à la bas"];
         yield["FR","Provence-Alpes-Côte d'Azur", "C'est l'été, le soleil, les vacances, le Pastis !"];
         yield["FR","Grand Est", "La saucisse"];
-        yield["FR","Breton", "Ils ont des chapeaux ronds, vive les bretons, ils ont des chapeaux verts, vive les per..."];
+        yield["FR","Normandie", "rien déso"];
+        yield["FR","Bretagne", "Ils ont des chapeaux ronds, vive les bretons, ils ont des chapeaux verts, vive les per..."];
         yield["FR","Bourgogne-Franche-Comté", "Je connais pas, mais ça sent le fromage"];
         yield["FR","Centre-Val de Loire", "Je sais pas désolé"];
         yield["FR","Corse", "On y vas pas !"];
